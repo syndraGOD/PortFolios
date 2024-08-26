@@ -1,0 +1,23 @@
+#login_page #registerPage_1{
+    width: inherit;
+    font-size: 20px;
+}
+#login_page #registerPage_1 .stepBox i{
+    font-size: 20px;
+    margin: 5px;
+}
+#login_page #registerPage_1 .content_scroll{
+    font-size: 12px;
+    height: 150px;
+    overflow-y: auto;
+    border: 1px solid #000;
+}
+#login_page #registerPage_1 .agreeBox{
+    margin-bottom: 15px;
+}
+/* #login_page #registerPage_1 .btnBox{
+
+} */
+#login_page #registerPage_1 .btnBox button{
+    padding: 12px 30px;
+}
