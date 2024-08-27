@@ -1,0 +1,33 @@
+#main_top .section_2 {
+  margin-top: 150px;
+}
+#main_top .section_2 .border {
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+#main_top .section_2 .eventPage {
+  display: flex;
+  /* background-color: aqua; */
+}
+
+#main_top .section_2 .eventPage .noticeBox .topBox {
+  display: flex;
+  justify-content: space-between;
+  background-color: aqua;
+}
+#main_top .section_2 .eventPage .noticeBox .topBox .topBox_left {
+  display: flex;
+}
+#main_top
+  .section_2
+  .eventPage
+  .noticeBox
+  .topBox
+  .topBox_left
+  .select
+  .options {
+  display: none;
+}
+#main_top .section_2 .eventPage .noticeBox .topBox .topBox_right {
+  display: flex;
+}

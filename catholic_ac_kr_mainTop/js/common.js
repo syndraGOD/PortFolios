@@ -42,6 +42,7 @@ const navi = () => {
 
   $hdrBtmGubLi.forEach((lis, idx) => {
     lis.addEventListener("mouseenter", (e) => {
+      $header.classList.add("active");
       current = idx;
       if (current !== old) {
         $hdrBtmGubLi[current].classList.add("active");
@@ -63,6 +64,7 @@ const navi = () => {
       lis.classList.remove("active");
     });
     $hdrBtmBg.style.height = `0px`;
+    $header.classList.remove("active");
   });
   $hdrBtmSubtitleLis.forEach((lis, idx) => {
     lis.addEventListener("mouseenter", (e) => {

@@ -4,6 +4,14 @@ const mainTop_section1 = () => {
     e.preventDefault();
     e.target.parentElement.parentElement.remove();
   });
+  //naviColor
+  // const hdr = het("#main_top #header")
+  // const hdr_btm = get("#main_top #header .hdr-btm-box")
+
+  // hdr_btm.addEventListener('mouseover', )
+
+  //mainSlide
+  const slideSystem = () => {};
   let currentSlide = 0,
     newSlide;
   const btnPrev = get(
@@ -40,7 +48,7 @@ const mainTop_section1 = () => {
     slider.children[newSlide].classList.remove("hide");
     slider.children[currentSlide].animate(ani_Out, options);
     slider.children[newSlide].animate(ani_In, options);
-    console.log((newSlide + 1) * 25);
+    // console.log((newSlide + 1) * 25);
     progress.value = (newSlide + 1) * 25;
     if (currentSlide === 3) {
       currentSlide = 0;

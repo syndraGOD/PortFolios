@@ -30,7 +30,7 @@ body.oh {
 }
 /* header */
 #header .hdr-top-box {
-  border-bottom: 1px solid #e6e6e6;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 #header .hdr-top-box .top-box-in {
   display: flex;
@@ -137,7 +137,7 @@ body.oh {
 }
 #header .hdr-btm-box {
   position: relative;
-  border-bottom: 1px solid #e6e6e6;
+  /* border-bottom: 1px solid #e6e6e6; */
 }
 #header .hdr-btm-box .btm-box-in {
   display: flex;
@@ -326,7 +326,7 @@ body.oh {
   position: absolute;
   left: 0;
   top: 70px;
-  border-bottom: 2px solid var(--mainColor);
+  /* border-bottom: 2px solid var(--mainColor); */
   transition: 0.3s;
   z-index: 1;
 }
