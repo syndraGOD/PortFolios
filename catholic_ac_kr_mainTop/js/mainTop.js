@@ -11,6 +11,7 @@ const mainTop_section1 = () => {
   // hdr_btm.addEventListener('mouseover', )
 
   //mainSlide
+
   const slideSystem = () => {};
   let currentSlide = 0,
     newSlide;
@@ -60,4 +61,14 @@ const mainTop_section1 = () => {
   btnNext.addEventListener("click", mainSlideNext);
   const mainSlider = setInterval(mainSlideNext, 4000);
 };
+
+let data;
+const mainTop_section2 = async () => {
+  const jsons = fetch("./JSON/hanwol_DB.json")
+    .then((e) => e.json())
+    .then((e) => (data = [...e]));
+
+  console.log(data);
+};
 mainTop_section1();
+mainTop_section2();

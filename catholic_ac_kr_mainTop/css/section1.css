@@ -98,7 +98,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  transform: scale(1.2);
+  /* transform: scale(1.2); */
 }
 #main_top .mainVideoBox .mainVideoUl {
   position: absolute;
