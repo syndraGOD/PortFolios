@@ -4,7 +4,6 @@
         <meta charset="UTF-8" />
         <title>Document</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="css/reset.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" />
 
         <style>
@@ -14,8 +13,7 @@
             }
         </style>
 
-        <link rel="stylesheet" href="css/loginForm.css" />
-        <link rel="stylesheet" href="css/indexPage.css" />
+        <link rel="stylesheet" href="css/reset.css" />
         <link rel="stylesheet" href="css/loginPage.css" />
         <link rel="stylesheet" href="css/registerPage.css" />
         <link rel="stylesheet" href="css/default.css" />
@@ -23,10 +21,25 @@
     <body>
         <div id="login_page">
             <div class="wrap">
-                <i id="page_prev" class="xi-angle-left"></i>
                 <div id="app">
-                    <div id="appBox1" class="appBox"></div>
-                    <div id="appBox2" class="appBox"></div>
+                    <div id="prevBox" class="hide">
+                        <i id="page_prev" class="xi-angle-left"></i>
+                        <span>Page(1)</span>
+                    </div>
+                    <div class="bookPage1 book">
+                        <div id="appBox1" class="appBox"></div>
+                    </div>
+                    <div class="bookPage2 book">
+                        <div id="appBox2" class="appBox"></div>
+                    </div>
+                    <div class="animationCard">
+                        <div class="animationCardFront">
+                            <div class="appBox Card"></div>
+                        </div>
+                        <div class="animationCardBack">
+                            <div class="appBox Card"></div>
+                        </div>
+                    </div>
                 </div>
                 <div id="copyright">
                     <p>ⓒThe Catholic University of Korea. All rights reserved.</p>
@@ -35,9 +48,10 @@
             </div>
         </div>
 
-        <script src="./js/register.js"></script>
-        <script src="./js/app.js"></script>
-        <script src="./js/loginMiniPage.js"></script>
+        <script src="./js/App.js"></script>
+        <script src="./js/LoginMiniPage.js"></script>
+        <script src="./js/Register.js"></script>
+        <script src="./js/FindIdpw.js"></script>
         <script></script>
     </body>
 </html>

@@ -156,7 +156,7 @@
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 #main_top .section_1 .mainSlider .mainSliderControl {

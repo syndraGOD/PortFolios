@@ -76,20 +76,37 @@
   .topBox_left
   .select
   .options {
-  display: none;
+  position: absolute;
+  background: white;
+  border: 1px solid #000;
+  width: 60px;
+  padding: 6px;
+}
+#main_top
+  .section_2
+  .eventPage
+  .noticeBox
+  .topBox
+  .topBox_left
+  .select
+  .options
+  p:hover {
+  background-color: rgb(0, 81, 255);
+  color: white;
 }
 #main_top .section_2 .eventPage .noticeBox .topBox .topBox_right span,
 #main_top .section_2 .eventPage .scheduleBox .topBox .topBox_right span {
-  padding: 6px 0px 6px 18px;
+  padding: 6px 0px 6px 0px;
   font-weight: 600;
   color: #808080;
   font-weight: 600;
+  margin-left: 10px;
 }
 #main_top .section_2 .eventPage .topBox .topBox_right span.active {
-  padding: 6px 0px 6px 0px;
   color: var(--subColor);
   border-bottom: 2px solid var(--subColor);
 }
+
 #main_top .section_2 .eventPage .noticeBox .content {
   padding-top: 18px;
 }
@@ -128,6 +145,14 @@
   font-size: 13px;
   color: #606060;
   font-weight: 600;
+}
+#main_top .roundBd.sungeu {
+  color: var(--subColor);
+  background-color: #dde0fa;
+}
+#main_top .roundBd.sungsin {
+  color: var(--subColor);
+  background-color: #f8dbfb;
 }
 #main_top
   .section_2
@@ -168,6 +193,11 @@
 #main_top .section_2 .eventPage .scheduleBox {
   border-right: 1px solid #e0e0e0;
   border-left: 1px solid #e0e0e0;
+}
+
+#main_top .section_2 .eventPage .schedules {
+  height: 450px;
+  overflow: hidden;
 }
 #main_top .section_2 .eventPage .schedules .sch {
   display: flex;
@@ -223,4 +253,8 @@
   background-image: url("../images/maint_sect3_slide_bg.png");
   background-repeat: no-repeat;
   background-position: 100% -6px;
+}
+
+#main_top .grapSlide ul {
+  display: flex;
 }
