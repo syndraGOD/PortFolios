@@ -153,8 +153,8 @@ const comInit = () => {
         }
       });
   };
-  getPage("page/header.html", "#header");
-  getPage("page/footer.html", "#footer");
+  getPage("page/headerMainTop.html", "#header");
+  getPage("page/footerMainTop.html", "#footer");
 };
 
 (() => {

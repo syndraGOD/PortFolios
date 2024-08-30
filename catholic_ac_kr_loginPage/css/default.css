@@ -12,7 +12,7 @@
 #login_page {
     width: 100vw;
     height: 100vh;
-    background: transparent url(../images/bg.jpg) no-repeat center center;
+    background: transparent url(../images/loginpage_bg.jpg) no-repeat center center;
     background-size: cover;
     display: flex;
     justify-content: center;
