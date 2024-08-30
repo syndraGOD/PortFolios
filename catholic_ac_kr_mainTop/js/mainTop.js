@@ -62,28 +62,6 @@ const mainTop_section1 = () => {
   const mainSlider = setInterval(mainSlideNext, 4000);
 };
 
-// let options = {
-//   method: method ? method.toUpperCase() : 'GET',
-//   headers: {
-//       'Content-Type': 'application/json',
-//       Authorization: token ? `Bearer ${token}` : undefined,
-//       Referer: 'localhost',
-//       ...headers,
-//   },
-//   ...
-// };
-
-// fetch('https://api.example.com/data', {
-//   method: 'POST',
-//   headers: {
-//     'Content-Type': 'application/json',
-//     'Authorization': 'Bearer token'
-//   },
-//   body: JSON.stringify({ name: 'John', age: 30 })
-// });
-
-// const res = await fetch(url, options);
-
 const mainTop_section2 = async () => {
   const jsonPromise = await fetch("./JSON/hanwol_DB.json");
   const jsonData = await jsonPromise.json();
@@ -187,56 +165,212 @@ const mainTop_section2 = async () => {
     });
     class SlideBox {
       constructor(node, url, len) {
+        console.log(url);
+        this.SlideNext = this.SlideNext.bind(this);
+        this.SlidePrev = this.SlidePrev.bind(this);
         this.node = node;
         this.url = url;
         this.max = len;
         this.current = 1;
-
+        this.ul = document.createElement("ul");
+        this.prevBtn = this.node.querySelector(".prev");
+        this.nextBtn = this.node.querySelector(".next");
+        this.pauseBtn = this.node.querySelector(".pause");
+        this.prog = this.node.querySelector(".prog");
+        this.lis = [
+          this.li(this.crt(-2)),
+          this.li(this.crt(-1)),
+          this.li(this.crt(0)),
+          this.li(this.crt(1)),
+          this.li(this.crt(2)),
+        ];
+        this.timer;
+        this.timer_on = true;
         this.init();
       }
       init() {
-        const ul = document.createElement("ul");
-        this.node.append(ul);
-        ul.append(
-          this.li(this.crt(-1)),
-          this.li(this.current),
-          this.li(this.crt(1))
-        );
+        this.ul.style.display = "flex";
+        // this.ul.style.overflowX = "hidden";
+        this.ul.style.width = `${this.node.offsetWidth}px`;
+        this.ul.style.height = `${this.node.offsetHeight}px`;
+        this.ul.style.position = "relative";
+
+        // this.ul.style.transform = ""
+        this.node.append(this.ul);
+        this.ul.append(...this.lis);
+        this.lisPos();
+        this.timerSet();
+        this.mouseEvent();
+        this.prevBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          this.SlidePrev();
+        });
+        this.nextBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          this.SlideNext();
+        });
+        this.pauseBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          this.timerToggle();
+        });
       }
       li(index) {
         const li = document.createElement("li");
         const img = document.createElement("img");
         img.setAttribute("src", this.url + index + ".png");
         img.setAttribute("alt", "slide" + index);
-        console.log(img.style.height);
-        li.append(img);
-        // li.style.position = "absolute";
 
+        li.append(img);
+
+        li.style.transition = "0.5s";
+        li.style.position = "absolute";
+        // li.style.zIndex = "-1";
         return li;
       }
+      lisPos(newLi) {
+        let pos = -2; //(this.current + 1) * -1;
+        this.lis.forEach((li, i) => {
+          if (li === newLi) li.style.zIndex = `-1`;
+          li.style.transform = `translateX(${pos++ * this.node.offsetWidth}px)`;
+        });
+      }
+      lisPrev() {
+        const newLi = this.li(this.crt(-2));
+        this.ul.lastChild.remove();
+        this.lis.pop();
+        this.ul.prepend(newLi);
+        this.lis.unshift(newLi);
+        this.lisPos(newLi);
+      }
+      lisNext() {
+        const newLi = this.li(this.crt(2));
+        this.ul.firstChild.remove();
+        this.lis.shift();
+        this.ul.appendChild(newLi);
+        this.lis.push(newLi);
+        this.lisPos(newLi);
+      }
+      SlidePrev() {
+        this.current = this.crt(-1);
+        this.lisPrev();
+        this.progSet();
+        this.timerReload();
+      }
+      SlideNext() {
+        this.current = this.crt(1);
+        this.lisNext();
+        this.progSet();
+        this.timerReload();
+      }
       crt(val) {
-        if (val === 1) {
-          if (this.current + 1 > this.max) {
-            return 1;
+        if (val === 0) return this.current;
+        if (val > 0) {
+          if (this.current + val > this.max) {
+            return this.current + val - this.max;
           } else {
-            return this.current + 1;
+            return this.current + val;
           }
-        } else {
-          if (this.current - 1 < 1) {
-            return this.max;
+        }
+        if (val < 0) {
+          if (this.current + val < 1) {
+            return this.current + this.max + val;
           } else {
-            return this.current - 1;
+            return this.current + val;
           }
         }
       }
+      mouseEvent() {
+        let isDragging = null;
+        let totalMove = 0;
+        this.ul.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+          isDragging = true;
+          this.lis.forEach((li) => (li.style.transition = "0s"));
+          this.timerStop();
+        });
+
+        document.addEventListener("mouseup", (e) => {
+          if (isDragging) {
+            isDragging = false;
+
+            this.lis.forEach((li) => (li.style.transition = "0.5s"));
+            const copy_totalMove = totalMove;
+            // console.log(totalMove);
+            if (Math.abs(copy_totalMove) >= this.ul.offsetWidth * 0.5) {
+              if (totalMove < 0) {
+                this.SlideNext();
+              } else {
+                this.SlidePrev();
+              }
+            } else {
+              this.lisPos();
+            }
+            this.timerSet();
+          }
+          totalMove = 0;
+        });
+
+        document.addEventListener("mousemove", (e) => {
+          if (isDragging) {
+            const diffX = e.movementX;
+            totalMove += diffX;
+            if (
+              0 < this.ul.offsetWidth + totalMove &&
+              this.ul.offsetWidth + totalMove < this.ul.offsetWidth * 2
+            ) {
+              this.lis.forEach((li) => {
+                let movementTranslateX =
+                  parseInt(
+                    li.style.transform
+                      .replace("translateX(", "")
+                      .replace("px)", "")
+                  ) + diffX;
+                li.style.transform = `translateX(${movementTranslateX}px)`;
+              });
+            }
+          }
+        });
+      }
+      timerSet() {
+        if (this.timer_on && this.timer === false)
+          this.timer = setInterval(() => {
+            this.SlideNext();
+            console.log("ㅎㅇ");
+          }, 3000);
+        console.log(this.timer);
+      }
+      timerStop() {
+        if (this.timer_on && this.timer !== false) {
+          clearInterval(this.timer);
+          this.timer = false;
+        }
+      }
+      timerToggle() {
+        this.timer = !this.timer;
+      }
+      timerReload() {
+        if (this.timer_on) {
+          clearInterval(this.timer);
+          this.timer = setInterval(() => {
+            this.SlideNext();
+          }, 3000);
+        }
+      }
+      progSet() {
+        this.prog.max = this.max;
+        this.prog.value = this.current;
+      }
     }
 
-    const slideNodes = getAll("#main_top .grapSlide");
-    slideNodes.forEach((slideBox) => {
-      test = new SlideBox(slideBox, "./images/maint_sect2_banner", 5);
-    });
+    const bannerSlider = document.querySelector(
+      "#main_top .section_2 .grapSlide.bannerSlide"
+    );
+    new SlideBox(bannerSlider, bannerSlider.dataset.src, 5); //"./images/maint_sect2_banner", 5);
 
-    const slideNext = () => {};
+    const contentSlider = document.querySelector(
+      "#main_top .section_3 .grabSlide.contentsBox"
+    );
+    new SlideBox(contentSlider, contentSlider.dataset.src, 5);
   };
   noticeList("일반");
   schedule_list();
