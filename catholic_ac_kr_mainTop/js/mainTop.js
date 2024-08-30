@@ -58,8 +58,8 @@ const mainTop_section1 = () => {
     }
   };
 
-  btnNext.addEventListener("click", mainSlideNext);
-  const mainSlider = setInterval(mainSlideNext, 4000);
+  // btnNext.addEventListener("click", mainSlideNext);
+  // const mainSlider = setInterval(mainSlideNext, 4000);
 };
 
 const mainTop_section2 = async () => {
@@ -163,9 +163,13 @@ const mainTop_section2 = async () => {
         }
       });
     });
+    //
+    //
+    //
+    //
+    //SlideBoxs
     class SlideBox {
       constructor(node, url, len) {
-        console.log(url);
         this.SlideNext = this.SlideNext.bind(this);
         this.SlidePrev = this.SlidePrev.bind(this);
         this.node = node;
@@ -185,7 +189,7 @@ const mainTop_section2 = async () => {
           this.li(this.crt(2)),
         ];
         this.timer;
-        this.timer_on = true;
+        this.timerPause = false;
         this.init();
       }
       init() {
@@ -194,7 +198,6 @@ const mainTop_section2 = async () => {
         this.ul.style.width = `${this.node.offsetWidth}px`;
         this.ul.style.height = `${this.node.offsetHeight}px`;
         this.ul.style.position = "relative";
-
         // this.ul.style.transform = ""
         this.node.append(this.ul);
         this.ul.append(...this.lis);
@@ -224,14 +227,25 @@ const mainTop_section2 = async () => {
 
         li.style.transition = "0.5s";
         li.style.position = "absolute";
-        // li.style.zIndex = "-1";
+
         return li;
       }
       lisPos(newLi) {
         let pos = -2; //(this.current + 1) * -1;
         this.lis.forEach((li, i) => {
-          if (li === newLi) li.style.zIndex = `-1`;
+          if (li === newLi) {
+            li.classList.add("hide");
+            setTimeout(() => {
+              li.classList.remove("hide");
+            }, 500);
+            // li.addEventListener("transitionstart", (e) => {
+            //   // e.target.classList.add("hide");
+            // });
+          }
+          li.style.translate = "3s";
           li.style.transform = `translateX(${pos++ * this.node.offsetWidth}px)`;
+
+          // li.style.zIndex = "2";
         });
       }
       lisPrev() {
@@ -285,8 +299,8 @@ const mainTop_section2 = async () => {
         this.ul.addEventListener("mousedown", (e) => {
           e.preventDefault();
           isDragging = true;
-          this.lis.forEach((li) => (li.style.transition = "0s"));
           this.timerStop();
+          this.lis.forEach((li) => (li.style.transition = "0s"));
         });
 
         document.addEventListener("mouseup", (e) => {
@@ -332,24 +346,25 @@ const mainTop_section2 = async () => {
         });
       }
       timerSet() {
-        if (this.timer_on && this.timer === false)
+        if (this.timerPause === false && this.timer === undefined) {
           this.timer = setInterval(() => {
             this.SlideNext();
-            console.log("ㅎㅇ");
           }, 3000);
-        console.log(this.timer);
+        }
       }
       timerStop() {
-        if (this.timer_on && this.timer !== false) {
+        if (this.timer !== undefined) {
           clearInterval(this.timer);
-          this.timer = false;
+          this.timer = undefined;
         }
       }
       timerToggle() {
-        this.timer = !this.timer;
+        this.timerPause = !this.timerPause;
+        if (this.timerPause) this.timerSet();
+        else this.timerStop();
       }
       timerReload() {
-        if (this.timer_on) {
+        if (this.timerPause) {
           clearInterval(this.timer);
           this.timer = setInterval(() => {
             this.SlideNext();
@@ -361,6 +376,10 @@ const mainTop_section2 = async () => {
         this.prog.value = this.current;
       }
     }
+    const mainSlider = document.querySelector(
+      "#main_top .section_1 .mainSlider.grabSlide"
+    );
+    new SlideBox(mainSlider, mainSlider.dataset.src, 4); //"./images/maint_sect2_banner", 5);
 
     const bannerSlider = document.querySelector(
       "#main_top .section_2 .grapSlide.bannerSlide"

@@ -1,9 +1,10 @@
 #main_top .section_2,
 #main_top .section_3 {
   margin-top: 150px;
+  position: relative;
 }
 #main_top .mainH2 {
-  position: absolute;
+  /* position: absolute; */
   top: 0px;
   left: 50%;
   transform: translateX(-50%);
@@ -257,6 +258,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  /* z-index: 1; */
 }
 #main_top .section_3 .sec3_bigSlider {
   /* position: absolute; */
@@ -265,14 +267,12 @@
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
-  background-color: white;
-  z-index: 2;
 }
 #main_top .section_3 .grabSlide.contentsBox {
   width: 1300px;
   height: 525px;
   overflow-x: visible;
-  background-color: white;
+
   /* transform: translateX(-50%); */
   /* left: 50%; */
 }
