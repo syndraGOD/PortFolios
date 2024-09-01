@@ -11,8 +11,44 @@
   position: relative;
 }
 #main_top .announce {
+  height: 51px;
+  width: 1903px;
+  display: flex;
+  justify-content: center;
+  /* background-color: pink; */
+}
+#main_top .announce .subNotice {
+  width: 100%;
+}
+#main_top .announce .subNotice li span,
+#main_top .announce .subNotice a {
+  position: absolute;
+  font-size: 24px;
+  z-index: 10;
+  line-height: 50px;
+  color: white;
+  /* top: 50%; */
+  /* transform: translateY(-50%); */
+}
+#main_top .announce .subNotice .delete {
+  /* background-color: ; */
+  left: 85%;
+}
+#main_top .announce .subNotice .prev {
+  left: 25%;
+  transform: translateX(-50%);
+}
+#main_top .announce .subNotice .next {
+  left: 75%;
+  transform: translateX(-50%);
+}
+#main_top .announce .subNotice li span {
+  left: 50%;
+  /* transform: translateX(-50%); */
+}
+#main_top .announce .subNotice {
   height: 52px;
-  background-color: pink;
+  /* background-color: pink; */
 }
 #main_top #header {
   z-index: 999;
@@ -84,14 +120,15 @@
 } */
 #main_top .mainVideoBox {
   position: absolute;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   z-index: 3;
   background: white;
+  overflow-y: hidden;
 }
 #main_top .mainVideoBox .mainVideo {
   height: 100%;
-  width: 100%;
+  width: 100vw;
   overflow: hidden;
 }
 #main_top .mainVideoBox .mainVideo iframe {
@@ -130,7 +167,7 @@
 }
 #main_top .section_1 .mainSlider.grabSlide {
 }
-#main_top .section_1 .sec2_bigSlider {
+#main_top .section_1 .sec1_bigSlider {
   width: 100%;
   height: 100%;
 }
@@ -158,8 +195,10 @@
 
 #main_top .section_1 .mainSlider .mainSliderControl {
   /* z-index: ; */
+
   position: absolute;
-  width: 300px;
+  z-index: 1;
+  width: 400px;
   height: 70px;
   /* background: white; */
   left: 50%;
@@ -173,12 +212,32 @@
 #main_top .section_1 .mainSlider .mainSliderControl span,
 #main_top .section_1 .mainSlider .mainSliderControl a {
   font-size: 20px;
-  margin: 12px;
+  margin: 14px;
   color: white;
+  /* background-color: #333333; */
 }
-/* #main_top .section_1 .mainSlider .mainSliderControl progress {
+#main_top .section_1 .mainSlider .mainSliderControl .progressBox {
   appearance: none;
 }
+#main_top
+  .section_1
+  .mainSlider
+  .mainSliderControl
+  .progressBox::-webkit-progress-bar {
+  background-color: white;
+  height: 2px;
+  /* margin: 10px; */
+}
+#main_top
+  .section_1
+  .mainSlider
+  .mainSliderControl
+  .progressBox::-webkit-progress-value {
+  background-color: var(--mainColor);
+  /* margin: 10px; */
+}
+
+/*
 #main_top
   .section_1
   .mainSlider

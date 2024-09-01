@@ -66,23 +66,23 @@ const mainTop_section2 = async () => {
   const jsonPromise = await fetch("./JSON/hanwol_DB.json");
   const jsonData = await jsonPromise.json();
 
-  const noticeSelect = get(
-    "#main_top .section_2 .noticeBox .topBox_left .select"
-  );
-  noticeSelect.addEventListener("mouseleave", (e) => {
-    if (!noticeSelect.children[2].classList.contains("hide"))
-      noticeSelect.children[2].classList.toggle("hide"); //children[2] : options
-  });
-  noticeSelect.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (e.target.nodeName === "P") {
-      noticeList(e.target.innerHTML);
-      noticeSelect.children[0].innerHTML =
-        "&nbsp&nbsp" + e.target.innerHTML + "&nbsp&nbsp&nbsp"; // children[0] : selected value
-      noticeSelect.children[2].classList.toggle("hide");
-    } else {
-      noticeSelect.children[2].classList.toggle("hide");
-    }
+  const noticeSelectAll = getAll("#main_top .select");
+  noticeSelectAll.forEach((noticeSelect) => {
+    noticeSelect.addEventListener("mouseleave", (e) => {
+      if (!noticeSelect.children[2].classList.contains("hide"))
+        noticeSelect.children[2].classList.toggle("hide"); //children[2] : options
+    });
+    noticeSelect.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (e.target.nodeName === "P") {
+        noticeList(e.target.innerHTML);
+        noticeSelect.children[0].innerHTML =
+          "&nbsp&nbsp" + e.target.innerHTML + "&nbsp&nbsp&nbsp"; // children[0] : selected value
+        noticeSelect.children[2].classList.toggle("hide");
+      } else {
+        noticeSelect.children[2].classList.toggle("hide");
+      }
+    });
   });
 
   const noticeList = async (select) => {
@@ -169,10 +169,11 @@ const mainTop_section2 = async () => {
     //
     //SlideBoxs
     class SlideBox {
-      constructor(node, url, len) {
+      constructor(node, url, len, texts) {
         this.SlideNext = this.SlideNext.bind(this);
         this.SlidePrev = this.SlidePrev.bind(this);
         this.node = node;
+        this.texts = texts;
         this.url = url;
         this.max = len;
         this.current = 1;
@@ -216,15 +217,37 @@ const mainTop_section2 = async () => {
           e.preventDefault();
           this.timerToggle();
         });
+        if (this.texts) {
+          document
+            .querySelector("#main_top .announce .subNotice .delete")
+            .addEventListener("click", (e) => {
+              e.preventDefault();
+              e.target.parentElement.parentElement.remove();
+            });
+        }
       }
       li(index) {
         const li = document.createElement("li");
         const img = document.createElement("img");
+        const span = document.createElement("span");
+        // console.log(this.url);
         img.setAttribute("src", this.url + index + ".png");
         img.setAttribute("alt", "slide" + index);
 
-        li.append(img);
+        if (this.texts) {
+          // const textBox = document.querySelector(
+          //   "#main_top .announce .subNotice .textBox"
+          // );
+          // console.log(i, this.texts[index - 1]);
+          // console.log(index);
+          span.innerHTML = this.texts[index - 1];
+          li.append(span);
+          console.log(li);
 
+          // console.log(li);
+        }
+
+        li.append(img);
         li.style.transition = "0.5s";
         li.style.position = "absolute";
 
@@ -234,6 +257,8 @@ const mainTop_section2 = async () => {
         let pos = -2; //(this.current + 1) * -1;
         this.lis.forEach((li, i) => {
           if (li === newLi) {
+            // console.log(Boolean(this.texts));
+
             li.classList.add("hide");
             setTimeout(() => {
               li.classList.remove("hide");
@@ -242,6 +267,7 @@ const mainTop_section2 = async () => {
             //   // e.target.classList.add("hide");
             // });
           }
+
           li.style.translate = "3s";
           li.style.transform = `translateX(${pos++ * this.node.offsetWidth}px)`;
 
@@ -250,6 +276,7 @@ const mainTop_section2 = async () => {
       }
       lisPrev() {
         const newLi = this.li(this.crt(-2));
+
         this.ul.lastChild.remove();
         this.lis.pop();
         this.ul.prepend(newLi);
@@ -263,6 +290,7 @@ const mainTop_section2 = async () => {
         this.ul.appendChild(newLi);
         this.lis.push(newLi);
         this.lisPos(newLi);
+        console.log(this.lis);
       }
       SlidePrev() {
         this.current = this.crt(-1);
@@ -296,7 +324,7 @@ const mainTop_section2 = async () => {
       mouseEvent() {
         let isDragging = null;
         let totalMove = 0;
-        this.ul.addEventListener("mousedown", (e) => {
+        this.node.parentElement.addEventListener("mousedown", (e) => {
           e.preventDefault();
           isDragging = true;
           this.timerStop();
@@ -310,7 +338,7 @@ const mainTop_section2 = async () => {
             this.lis.forEach((li) => (li.style.transition = "0.5s"));
             const copy_totalMove = totalMove;
             // console.log(totalMove);
-            if (Math.abs(copy_totalMove) >= this.ul.offsetWidth * 0.5) {
+            if (Math.abs(copy_totalMove) >= this.ul.offsetWidth * 0.2) {
               if (totalMove < 0) {
                 this.SlideNext();
               } else {
@@ -344,6 +372,22 @@ const mainTop_section2 = async () => {
             }
           }
         });
+        // if (this.dragNode) {
+        // console.log(this.node.parentElement.querySelector(".dragNode"));
+        if (this.node.parentElement.querySelector(".dragNode")) {
+          // console.log(1);
+          const dragNode = this.node.parentElement.querySelector(".dragNode");
+          const dragBox =
+            this.node.parentElement.querySelector(".dragNodeBox_rel");
+          dragBox.parentElement.addEventListener("mousemove", (e) => {
+            const mouseX = e.offsetX;
+            // console.log(e.offsetX, e.offsetY);
+            const mouseY = e.offsetY + 10 - 100; //dragNode.style.height = 100px
+            dragNode.style.left = mouseX + "px";
+            dragNode.style.top = mouseY + "px";
+          });
+        }
+        // }
       }
       timerSet() {
         if (this.timerPause === false && this.timer === undefined) {
@@ -372,10 +416,31 @@ const mainTop_section2 = async () => {
         }
       }
       progSet() {
-        this.prog.max = this.max;
-        this.prog.value = this.current;
+        if (this.prog) {
+          this.prog.max = this.max;
+          this.prog.value = this.current;
+          // console.log(this.prog.previousElementSibling.tagName);
+          if (this.prog.previousElementSibling) {
+            if (this.prog.previousElementSibling.tagName === "SPAN")
+              this.prog.previousElementSibling.innerHTML = this.prog.value;
+          }
+
+          if (this.prog.nextSibling) {
+            if (this.prog.nextSibling.tagName === "SPAN")
+              this.prog.nextSibling.innerHTML = this.prog.max;
+          }
+        }
       }
     }
+    const subNotice = document.querySelector(
+      "#main_top .section_1 .subNotice.grabSlide"
+    );
+    new SlideBox(subNotice, subNotice.dataset.src, 4, [
+      "[성심] 2024-2학기 코로나 19 감염 예방 관련 권고 사항 (24.8.26 적용)",
+      "대학-학과-대학원 홈페이지 리뉴얼 오픈 안내",
+      "2024년도 2학기 재학생 등록금 납부 안내",
+      "[입학처] 신입생(24학번) 대상 설문 (4천원 쿠폰 증정)",
+    ]);
     const mainSlider = document.querySelector(
       "#main_top .section_1 .mainSlider.grabSlide"
     );

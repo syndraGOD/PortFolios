@@ -16,9 +16,21 @@
   <body>
     <div id="main_top">
       <div class="section section_1">
-        <div class="announce"></div>
+        <div class="announce">
+          <div
+            class="subNotice grabSlide"
+            data-src="./images/maint_sect1_subNotice_bg"
+          >
+            <!-- <progress class="hide prog"></progress> -->
+            <a href="" class="xi-angle-left prev"></a>
+            <!-- <p class="textBox"></p> -->
+            <a href="" class="hide xi-pause pause"></a>
+            <a href="" class="xi-angle-right next"></a>
+            <a class="delete" href="">공지사항 닫기 X</a>
+          </div>
+        </div>
         <header id="header"></header>
-        <div class="mainVideoBox hide">
+        <div class="mainVideoBox">
           <div class="mainVideo">
             <iframe
               src="https://player.vimeo.com/video/953349625?h=cbccad620d&badge=0&autopause=0&&autoplay=1&loop=1&muted=1&background=1"
@@ -30,7 +42,7 @@
             >
             </iframe>
           </div>
-          <p>THE CATHOLIC UNIVERSITY KOREA</p>
+          <!-- <p>THE CATHOLIC UNIVERSITY KOREA</p> -->
           <div class="mainVideoUl">
             <!-- <li><a class="xi-play"></a></li>
             <li><a class="xi-pause"></a></li> -->
@@ -51,20 +63,24 @@
             <a class="xi-angle-right nextBtn"></a>
           </div>
         </div> -->
-        <div class="sec2_bigSlider">
+        <div class="sec1_bigSlider">
           <div
             class="mainSlider sectionInner grabSlide"
             data-src="./images/maint_sect1_bg"
           >
-            <progress
-              value="1"
-              max="5"
-              style="height: 5px"
-              class="hide progressBox prog"
-            ></progress>
-            <a href="" class="hide xi-angle-left prev"></a>
-            <a href="" class="hide xi-angle-right next"></a>
-            <a href="" class="hide xi-pause pause"></a>
+            <div class="mainSliderControl">
+              <span>1</span>
+              <progress
+                value="1"
+                max="4"
+                style="height: 5px"
+                class="progressBox prog"
+              ></progress
+              ><span>4</span>
+              <a href="" class="xi-angle-left prev"></a>
+              <a href="" class="xi-pause pause"></a>
+              <a href="" class="xi-angle-right next"></a>
+            </div>
           </div>
         </div>
       </div>
@@ -216,6 +232,19 @@
           <h2>Research & Peaple</h2>
         </div>
         <div class="sec3_bigSlider">
+          <div class="dragNodeBox_abs">
+            <div class="dragNodeBox_rel">
+              <div class="dragNode">
+                <p>MAUSE</p>
+                <p>DRAG</p>
+                <p>
+                  <i class="xi-arrow-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i
+                    class="xi-arrow-right"
+                  ></i>
+                </p>
+              </div>
+            </div>
+          </div>
           <div
             class="contentsBox grabSlide"
             data-src="./images/maint_sect3_content"
@@ -232,6 +261,7 @@
           </div>
         </div>
       </div>
+      <!-- <div class="section section_4"></div> -->
 
       <!-- <div class="section section_1"></div> -->
       <footer id="footer"></footer>

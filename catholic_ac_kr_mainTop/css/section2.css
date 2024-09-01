@@ -1,20 +1,27 @@
+/* #main_top .section_1, */
 #main_top .section_2,
-#main_top .section_3 {
-  margin-top: 150px;
+#main_top .section_3,
+#main_top .section_4 {
+  margin-top: 75px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 #main_top .mainH2 {
   /* position: absolute; */
-  top: 0px;
-  left: 50%;
-  transform: translateX(-50%);
+  /* top: -150px; */
+  /* top: 0; */
+  /* left: 50%; */
+  /* transform: translateX(-50%); */
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 75px;
   font-weight: 100;
   color: var(--subColor);
-  padding: 25px;
+  padding: 50px;
 }
 #main_top .section_2 .border {
   border-top: 1px solid #e0e0e0;
@@ -62,40 +69,53 @@
   color: black;
   font-weight: 600;
 }
-#main_top .section_2 .eventPage .noticeBox .topBox .topBox_left .select span {
+#main_top #header .selectPosBox {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+#main_top #header .select .options {
+  background: none;
+  border: none;
+  border: 1px solid #e0e0e0;
+  top: 24px;
+}
+#main_top .select span {
   border-right: 1px solid #e0e0e0;
   font-size: 13px;
-  color: black;
+  color: var(--font-color-dark);
   font-weight: 600;
 }
-#main_top .section_2 .eventPage .noticeBox .topBox .topBox_left .select {
+#main_top .select i {
+  font-size: 13px;
+}
+#main_top .select {
   padding: 2px;
   border: 1px solid #e0e0e0;
   border-radius: 15px;
+  position: relative;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
 }
-#main_top
-  .section_2
-  .eventPage
-  .noticeBox
-  .topBox
-  .topBox_left
-  .select
-  .options {
+#main_top .select .options {
   position: absolute;
   background: white;
-  border: 1px solid #000;
-  width: 60px;
+  border: 1px solid #e0e0e0;
+  border-radius: 15px;
+  width: 100%;
   padding: 6px;
+  font-size: 15px;
+  top: 0;
+  left: -5px;
+  color: var(--font-color-dark);
 }
-#main_top
-  .section_2
-  .eventPage
-  .noticeBox
-  .topBox
-  .topBox_left
-  .select
-  .options
-  p:hover {
+#main_top .select .options p {
+  color: var(--font-color-dark) !important;
+}
+#main_top .select .options p:hover {
   background-color: rgb(0, 81, 255);
   color: white;
 }
@@ -230,8 +250,7 @@
   font-size: 20px;
   font-weight: 600;
 }
-#main_top .section_2 .eventPage .schedules .sch {
-}
+
 #main_top .section_2 .eventPage .schedules .sch {
 }
 #main_top .fz32 {
@@ -262,7 +281,7 @@
 }
 #main_top .section_3 .sec3_bigSlider {
   /* position: absolute; */
-  width: 2440px;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -275,4 +294,34 @@
 
   /* transform: translateX(-50%); */
   /* left: 50%; */
+}
+#main_top .section_3 .dragNodeBox_abs {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: none;
+  z-index: 100;
+}
+#main_top .section_3 .dragNodeBox_rel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+#main_top .section_3 .dragNode {
+  position: absolute;
+  z-index: 10;
+  background-color: yellow;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  color: var(--subColor);
+  font-weight: 700;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* transition: 0.1s;ASAS */
+  /* left: 80%; */
+  /* bottom: 5%; */
 }
